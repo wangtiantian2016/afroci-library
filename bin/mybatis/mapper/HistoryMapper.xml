@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afroci.library.dao.HistoryDao">
+    <sql id="BASE_TABLE">
+        history
+    </sql>
+    <sql id="BASE_COLUMN">
+        history_id,category_name,title,author,theme,borrow_user,borrow_start,borrow_end
+    </sql>
+    <resultMap type="com.afroci.library.model.History" id="BaseResultMap">
+		<id column="history_id" property="historyId"/>
+		<result column="category_name" property="categoryName"/>
+		<result column="title" property="title"/>
+		<result column="author" property="author"/>
+		<result column="theme" property="theme"/>
+		<result column="borrow_user" property="borrowUser"/>
+		<result column="borrow_start" property="borrowStart"/>
+		<result column="borrow_end" property="borrowEnd"/>
+	</resultMap>
+	<select id="selectXmlHistoryByBorrowUser" parameterType="String" resultMap="BaseResultMap">
+		SELECT
+            <include refid="BASE_COLUMN"/>
+        FROM
+            <include refid="BASE_TABLE"/>
+		where borrow_user = #{userId}
+	</select>
+
+</mapper>
